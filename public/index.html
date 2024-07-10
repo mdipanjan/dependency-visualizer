@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dependency Visualizer</title>
+    <style>
+      #chart {
+        width: 100%;
+        height: 600px;
+        border: 1px solid #ccc;
+      }
+      #controls {
+        margin-bottom: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="controls">
+      <button id="radialBtn">Radial Tree</button>
+      <button id="sunburstBtn">Sunburst</button>
+    </div>
+    <div id="chart"></div>
+    <div id="debug"></div>
+    <script src="/bundle.js"></script>
+    <script>
+      console.log('Script started');
+      document.addEventListener('DOMContentLoaded', () => {
+        console.log('DOM loaded');
+        if (typeof DependencyVisualizer === 'undefined') {
+          console.error('DependencyVisualizer is not defined');
+          document.getElementById('debug').innerText = 'Error: DependencyVisualizer is not defined';
+          return;
+        }
+        console.log('DependencyVisualizer:', DependencyVisualizer);
+        const visualizer = new DependencyVisualizer('#chart', 'radial');
+        console.log('Visualizer instance created:', visualizer);
+        visualizer.loadData();
+        console.log('loadData called');
+
+        document.getElementById('radialBtn').addEventListener('click', () => {
+          visualizer.changeVisualizationType('radial');
+        });
+
+        document.getElementById('sunburstBtn').addEventListener('click', () => {
+          visualizer.changeVisualizationType('sunburst');
+        });
+      });
+    </script>
+  </body>
+</html>
